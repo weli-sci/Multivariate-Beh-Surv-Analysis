@@ -273,15 +273,22 @@ summary(FIDCov_MotherOffspring)
 
 
 # Heritability calculation####
-
+library(MCMCglmm)
 summary(FIDCov_MotherOffspring)
+# Model II
 h<-((FIDCov_MotherOffspring$VCV[, "traitFIDAdFem:traitFIDJuv.MotherID"])/
       (FIDCov_MotherOffspring$VCV[,"traitFIDAdFem:traitFIDAdFem.MotherID"]))*2
 mean(h) 
 HPDinterval(h)
 
-AverJuvTraits_Mother_MultiMCMCModel4
+h_standvar<-((FIDCov_MotherOffspring$VCV[, "traitFIDAdFem:traitFIDJuv.MotherID"])/
+      (sqrt(FIDCov_MotherOffspring$VCV[,"traitFIDAdFem:traitFIDAdFem.MotherID"] * 
+              FIDCov_MotherOffspring$VCV[,"traitFIDJuv:traitFIDJuv.MotherID"] )))*2
+mean(h_standvar) 
+HPDinterval(h_standvar)
 
+AverJuvTraits_Mother_MultiMCMCModel4
+# Model I
 h2<-((AverJuvTraits_Mother_MultiMCMCModel4$VCV[, "traitFIDAdFem:traitAvFIDJuv.MotherID"])/
       (AverJuvTraits_Mother_MultiMCMCModel4$VCV[,"traitFIDAdFem:traitFIDAdFem.MotherID"]))*2
 mean(h2) 
